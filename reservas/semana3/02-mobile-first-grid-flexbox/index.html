@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - Mobile-First, Grid y Flexbox | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../pwa/tarjeta.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 02: GRID & FLEXBOX</small>
+            </span>
+        </a>
+
+        <div class="header-actions">
+            <!-- Botón Obligatorio #btnSimularVista -->
+            <button id="btnSimularVista" class="btn primary btn-sim-vista" type="button" aria-pressed="false">
+                📱 Simular Vista Móvil (375px)
+            </button>
+            <a class="nav-cta" href="../../index.html">← Salir</a>
+        </div>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 3 · LABORATORIO 02</span>
+            <h1>Mobile-First: CSS Grid &amp; Flexbox con Simulador de Vista</h1>
+            <p>
+                Layout diseñado en estrategia <strong>Mobile-First</strong>: CSS Grid (1fr en móvil hasta 768px, y <code>repeat(auto-fit, minmax(220px, 1fr))</code> en escritorio).
+                Flexbox para los interiores de las tarjetas y selector de horarios optimizado para pantallas de 360px.
+            </p>
+
+            <!-- Grilla Principal con soporte para la clase .sim-movil -->
+            <div id="gridCanchasResponsive" class="grid-canchas-container">
+                <!-- Cancha 1 -->
+                <article class="card-cancha card-cancha--activa">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=700&q=80" alt="Cancha 1" class="card-cancha__imagen" width="700" height="394" loading="eager">
+                        <span class="card-cancha__badge">Fútbol 8</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Cancha Sintética Maracaná</h3>
+                        <p class="card-cancha__descripcion">Pasto Sintético Pro · Zona Sur</p>
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: 16 jug.</span>
+                            <span class="card-cancha__precio">40 BOB / hr</span>
+                        </div>
+                        <span class="card-cancha__horarios-label">Turnos:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" aria-label="18:00 disponible"><span class="horario__hora">18:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" disabled aria-disabled="true" aria-label="19:00 ocupado"><span class="horario__hora">19:00</span><span class="horario__indicador">Ocupado</span></button>
+                            <button type="button" class="horario horario--disponible" aria-label="20:00 disponible"><span class="horario__hora">20:00</span><span class="horario__indicador">Libre</span></button>
+                        </div>
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Cancha 2 -->
+                <article class="card-cancha card-cancha--activa">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&w=700&q=80" alt="Cancha 2" class="card-cancha__imagen" width="700" height="394" loading="lazy">
+                        <span class="card-cancha__badge">Wally</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Wally Court A Panorámico</h3>
+                        <p class="card-cancha__descripcion">Piso Flotante Curado · Nivel 1</p>
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: 8 jug.</span>
+                            <span class="card-cancha__precio">35 BOB / hr</span>
+                        </div>
+                        <span class="card-cancha__horarios-label">Turnos:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" aria-label="17:00 disponible"><span class="horario__hora">17:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--disponible" aria-label="18:00 disponible"><span class="horario__hora">18:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" disabled aria-disabled="true" aria-label="19:00 ocupado"><span class="horario__hora">19:00</span><span class="horario__indicador">Ocupado</span></button>
+                        </div>
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Cancha 3 -->
+                <article class="card-cancha card-cancha--activa">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80" alt="Cancha 3" class="card-cancha__imagen" width="700" height="394" loading="lazy">
+                        <span class="card-cancha__badge">Futsal / Vóley</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Coliseo Futsal Arena</h3>
+                        <p class="card-cancha__descripcion">Poliuretano Alto Impacto · Central</p>
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: 12 jug.</span>
+                            <span class="card-cancha__precio">45 BOB / hr</span>
+                        </div>
+                        <span class="card-cancha__horarios-label">Turnos:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" aria-label="19:00 disponible"><span class="horario__hora">19:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--disponible" aria-label="20:00 disponible"><span class="horario__hora">20:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" disabled aria-disabled="true" aria-label="21:00 ocupado"><span class="horario__hora">21:00</span><span class="horario__indicador">Ocupado</span></button>
+                        </div>
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../../pwa/tarjeta.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

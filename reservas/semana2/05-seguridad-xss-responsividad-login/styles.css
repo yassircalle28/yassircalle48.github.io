@@ -1,0 +1,228 @@
+/* Lab Semana 2 - 05: Seguridad Anti-XSS y 4 Puntos Críticos de UI Móvil */
+
+/* 1. min-height: 100dvh obligatorio */
+.lab-viewport-container {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    padding-bottom: 90px; /* Espacio para el dock inferior en móvil */
+}
+
+@media (min-width: 768px) {
+    .lab-viewport-container {
+        flex-direction: row;
+        gap: 24px;
+        padding-bottom: 20px;
+    }
+}
+
+/* 2. Barra de acciones (.dock-acciones) abajo en móvil y lateral en PC/landscape */
+.dock-acciones {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(232, 189, 85, 0.3);
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px; /* 8px separación requerida */
+    z-index: 100;
+}
+
+@media (min-width: 768px) {
+    .dock-acciones {
+        position: static;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 140px;
+        border-top: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        background: transparent;
+        padding: 0;
+        gap: 12px;
+    }
+}
+
+/* Regla landscape con max-height: 500px requerida */
+@media (orientation: landscape) and (max-height: 500px) {
+    .dock-acciones {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: auto;
+        width: 80px;
+        flex-direction: column;
+        justify-content: center;
+        border-top: none;
+        border-right: 1px solid rgba(232, 189, 85, 0.3);
+        padding: 6px;
+    }
+
+    .lab-viewport-container {
+        padding-left: 95px;
+        padding-bottom: 20px;
+    }
+}
+
+/* 3. Botones mínimos de 44x44px con 8px de separación */
+.dock-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #f7f8fb;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+}
+
+.dock-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #e8bd55;
+}
+
+.dock-btn--cta {
+    background: #e8bd55;
+    color: #0f172a;
+    border-color: #e8bd55;
+}
+
+.lab-content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0; /* Previene desbordamiento flex */
+}
+
+.card-modulo {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+/* 4. Textos largos con min-width: 0 y text-overflow: ellipsis */
+.card-modulo h2,
+.lista-segura strong,
+.lista-segura span {
+    min-width: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.form-login, .form-xss {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.campo input, .campo select {
+    min-height: 44px;
+    padding: 8px 12px;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.input-with-button {
+    display: flex;
+    gap: 8px;
+}
+
+.input-with-button input {
+    flex: 1;
+}
+
+.feedback-msg {
+    display: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 8px 0 0;
+}
+
+.feedback-msg.exito {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #6ee7b7;
+}
+
+.feedback-msg.error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+}
+
+.xss-output-box {
+    margin-top: 20px;
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lista-segura {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Patrón seguro: <li> + <strong>.text(nombre) + <span>.text(sala) */
+.item-seguro {
+    background: #0f172a;
+    border-left: 3px solid #10b981;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-seguro strong {
+    color: #f7f8fb;
+    font-size: 13px;
+}
+
+.item-seguro span {
+    color: #94a3b8;
+    font-size: 12px;
+}

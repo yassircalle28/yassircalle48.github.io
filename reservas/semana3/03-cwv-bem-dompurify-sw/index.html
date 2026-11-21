@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e19">
+    <title>03 - CWV, BEM, DOMPurify y SW | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../pwa/tarjeta.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 03: CWV & DOMPURIFY</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 3 · LABORATORIO 03</span>
+            <h1>Auditoría Core Web Vitals, BEM y Sanitización DOMPurify</h1>
+            <p>
+                Garantía de rendimiento: <strong>CLS ≤ 0.1</strong> mediante <code>aspect-ratio: 16/9</code> reservando espacio en imágenes, BEM limpio sin <code>!important</code>, registro de <code>sw.js</code> y sanitización dinámica obligatoria con <strong>DOMPurify 3.1.6</strong> para comentarios enriquecidos de clientes.
+            </p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-val">CLS ≤ 0.1</span>
+                    <span class="metric-name">Cumulative Layout Shift</span>
+                    <p>Imágenes con contenedor y aspect-ratio 16:9 fijo.</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-val">LCP ≤ 2.5s</span>
+                    <span class="metric-name">Largest Contentful Paint</span>
+                    <p>Imagen principal con fetchpriority y loading eager.</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-val">DOMPurify</span>
+                    <span class="metric-name">v3.1.6 Sanitizer</span>
+                    <p>Neutralización estricta de XSS en tiempo de ejecución.</p>
+                </div>
+            </div>
+
+            <!-- Demostración interactiva de DOMPurify 3.1.6 -->
+            <div class="purify-lab-box">
+                <h3>Comentarios Enriquecidos de Clientes (Sanitizados con DOMPurify)</h3>
+                
+                <form id="formComentarioEnriquecido" class="purify-form">
+                    <div class="campo">
+                        <label for="inputUsuario">Nombre del Cliente / Equipo</label>
+                        <input type="text" id="inputUsuario" value="Capitán Wally & Futsal" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="inputHtmlEnriquecido">Comentario o HTML Formateado (Prueba con XSS):</label>
+                        <textarea id="inputHtmlEnriquecido" rows="3">Excelente cancha, césped de primera. <img src=x onerror=alert('Ataque_Bloqueado_Por_DOMPurify')> <b style="color:#e8bd55;">¡Recomendado al 100%!</b></textarea>
+                    </div>
+
+                    <button type="submit" class="btn primary">
+                        Sanitizar e Insertar Comentario →
+                    </button>
+                </form>
+
+                <div class="purify-results">
+                    <h4>Muro de Comentarios Sanitizados:</h4>
+                    <div id="muroComentarios" class="comments-wall">
+                        <!-- Inserciones seguras con DOMPurify.sanitize() -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- DOMPurify 3.1.6 Requerido -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

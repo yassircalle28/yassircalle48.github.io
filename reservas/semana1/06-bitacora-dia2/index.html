@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06 - Bitácora Día 2: Checkout Rápido | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-wally">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 06: BITÁCORA DÍA 2 (CHECKOUT)</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 1 · LABORATORIO 06</span>
+            <h1>Checkout Rápido con Registro de Bitácora</h1>
+            <p>
+                Simulación académica de reserva exprés: evento <code>change</code> en <code>#variantSelect</code>, evento <code>submit</code> en <code>#orderForm</code> con <code>preventDefault()</code>, <code>orderForm.reset()</code> y registro en <code>#logDia2</code> mediante nodos de texto seguros.
+            </p>
+
+            <div class="checkout-grid">
+                <!-- Formulario de Checkout Rápido -->
+                <form id="orderForm" class="checkout-form" novalidate>
+                    <h3>Formulario de Reserva Rápida</h3>
+
+                    <div class="campo">
+                        <label for="variantSelect">Selecciona Variante de Alquiler</label>
+                        <select id="variantSelect" name="variante" required>
+                            <option value="1hr-40bob" data-horas="1" data-precio="40">1 Hora Futsal / Wally - 40 BOB (Simulación)</option>
+                            <option value="2hr-75bob" data-horas="2" data-precio="75">2 Horas Combo Amigos - 75 BOB (Simulación)</option>
+                            <option value="3hr-105bob" data-horas="3" data-precio="105">3 Horas Torneo Relámpago - 105 BOB (Simulación)</option>
+                        </select>
+                    </div>
+
+                    <div class="summary-box">
+                        <span class="summary-label">Monto a Facturar (Simulado):</span>
+                        <strong class="summary-price" id="displayPrecio">40 BOB</strong>
+                    </div>
+
+                    <div class="campo">
+                        <label for="clienteNombre">Nombre o Equipo Solicitante <span class="req">*</span></label>
+                        <input type="text" id="clienteNombre" name="cliente" placeholder="Ej. Wally Master Club" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="clienteTel">Teléfono de Contacto <span class="req">*</span></label>
+                        <input type="tel" id="clienteTel" name="telefono" placeholder="Ej. 76543210" required>
+                    </div>
+
+                    <button type="submit" class="btn primary btn-checkout">
+                        Procesar Solicitud Exprés →
+                    </button>
+                </form>
+
+                <!-- Bitácora de Auditoría Día 2 -->
+                <div class="log-panel">
+                    <div class="log-header">
+                        <h3>Auditoría #logDia2</h3>
+                        <span class="badge-audit">DOM Seguro</span>
+                    </div>
+                    <ul id="logDia2" class="log-entries" role="log" aria-live="polite">
+                        <!-- Generado con textContent / createElement -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

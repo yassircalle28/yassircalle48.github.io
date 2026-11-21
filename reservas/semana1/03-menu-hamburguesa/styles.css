@@ -1,0 +1,84 @@
+/* Lab 03: Menú Hamburguesa */
+.lab-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.lab-card {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.hamburger-btn {
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 8px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #e8bd55;
+}
+
+.hamburger-bar {
+    width: 22px;
+    height: 2px;
+    background-color: #f7f8fb;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+}
+
+.nav-collapsible {
+    display: none;
+    background: #090e1a;
+    border-bottom: 2px solid #e8bd55;
+    padding: 20px;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-list a {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.nav-list a:hover {
+    background: rgba(232, 189, 85, 0.15);
+    color: #e8bd55;
+    transform: translateX(4px);
+}
+
+.test-panel {
+    margin-top: 24px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 - Fetch y Lazy Loading | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../pwa/tarjeta.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 03: FETCH & RENDIMIENTO</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 2 · LABORATORIO 03</span>
+            <h1>Carga Asíncrona (Fetch JSON) y Rendimiento CWV</h1>
+            <p>
+                Carga de datos desde <code>../../pwa/data/canchas.json</code> y <code>horarios.json</code> con validación <code>response.ok</code> y <code>.catch()</code> visible.
+                Imágenes optimizadas para CLS con <code>aspect-ratio: 16/9</code>, primera imagen LCP <code>eager</code> y el resto <code>loading="lazy"</code>.
+            </p>
+
+            <div class="metrics-badge-bar">
+                <span class="metric-pill">⚡ CLS ≤ 0.1 (Aspect-Ratio)</span>
+                <span class="metric-pill">🚀 LCP Optimized (Eager 1st)</span>
+                <span class="metric-pill" id="totalRecordsCount">Cargando registros...</span>
+            </div>
+
+            <!-- Contenedor de Error Visible -->
+            <div id="fetchErrorBox" class="fetch-error" role="alert" aria-live="assertive"></div>
+
+            <!-- Grilla de Canchas Dinámicas -->
+            <div id="canchasGrid" class="canchas-grid" aria-busy="true">
+                <div class="skeleton-loading">
+                    <p>⏳ Obteniendo catálogo y disponibilidad de turnos...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../../pwa/tarjeta.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

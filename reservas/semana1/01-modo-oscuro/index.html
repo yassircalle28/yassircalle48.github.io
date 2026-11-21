@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Modo Oscuro | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 01: MODO OSCURO</small>
+            </span>
+        </a>
+
+        <div class="header-actions">
+            <span id="theme-status" class="badge-status" aria-live="polite">Modo: Oscuro</span>
+            <button id="btn-theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar a modo claro" aria-pressed="true">
+                🌙
+            </button>
+            <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+        </div>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 1 · LABORATORIO 01</span>
+            <h1>Control de Tema: Modo Oscuro / Claro</h1>
+            <p>
+                Implementación con jQuery, persistencia segura en <code>localStorage</code> protegida por bloques <code>try/catch</code>, botón accesible con <code>aria-pressed</code> e indicador en tiempo real en el encabezado.
+            </p>
+
+            <div class="preview-box">
+                <div class="cancha-sample">
+                    <span class="badge-sport">⚽ Futsal Arena</span>
+                    <h3>Cancha Sintética Maracaná</h3>
+                    <p>Tarifa referencial: 40 BOB / hora</p>
+                    <button class="btn primary" type="button">Probar Interacción</button>
+                </div>
+            </div>
+
+            <div class="code-note">
+                <strong>Estado en almacenamiento local:</strong>
+                <span id="storage-debug">Verificando...</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+/* Lab Semana 3 - 03: Core Web Vitals, BEM y DOMPurify */
+.lab-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.lab-card {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0 32px;
+}
+
+.metric-card {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.metric-val {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    color: #e8bd55;
+    margin-bottom: 4px;
+}
+
+.metric-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f7f8fb;
+}
+
+.metric-card p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 6px 0 0;
+}
+
+.purify-lab-box {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.purify-lab-box h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: #e8bd55;
+}
+
+.purify-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.campo input, .campo textarea {
+    min-height: 44px;
+    padding: 10px 12px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.comments-wall {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comment-card {
+    background: #0f172a;
+    border-left: 3px solid #10b981;
+    padding: 14px 18px;
+    border-radius: 8px;
+}
+
+.comment-author {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e8bd55;
+    margin-bottom: 4px;
+}
+
+.comment-body {
+    font-size: 13px;
+    color: #e2e8f0;
+    line-height: 1.5;
+}

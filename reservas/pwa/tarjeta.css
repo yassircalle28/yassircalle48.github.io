@@ -1,0 +1,288 @@
+/* ==========================================================================
+   COMPONENTE BEM: Tarjeta de Cancha (.card-cancha) & Selector de Horarios
+   Diseño Web II - SIS-0141 | Arquitectura CSS Escalable
+   ========================================================================== */
+
+.card-cancha {
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    color: #f7f8fb;
+}
+
+.card-cancha:hover {
+    transform: translateY(-4px);
+    border-color: rgba(232, 189, 85, 0.45);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+}
+
+.card-cancha--activa {
+    border-color: #e8bd55;
+    box-shadow: 0 0 0 2px rgba(232, 189, 85, 0.35);
+}
+
+.card-cancha--ocupada {
+    opacity: 0.65;
+    filter: grayscale(40%);
+}
+
+/* Header & Multimedia (CLS ≤ 0.1 con aspect-ratio) */
+.card-cancha__header {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: #1e293b;
+}
+
+.card-cancha__imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.card-cancha:hover .card-cancha__imagen {
+    transform: scale(1.05);
+}
+
+.card-cancha__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(8, 14, 25, 0.85);
+    color: #e8bd55;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(232, 189, 85, 0.3);
+}
+
+.card-cancha__estado {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.card-cancha__estado--disponible {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.card-cancha__estado--ocupado {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+/* Cuerpo del componente */
+.card-cancha__cuerpo {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+}
+
+.card-cancha__titulo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    min-width: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.card-cancha__descripcion {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-cancha__specs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.card-cancha__precio {
+    font-size: 15px;
+    font-weight: 700;
+    color: #e8bd55;
+}
+
+/* Grilla de Selección de Horarios */
+.card-cancha__horarios-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    font-weight: 700;
+}
+
+.card-cancha__horarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+    gap: 8px;
+}
+
+/* Botón Horario Accesible (Min 44x44px, separación 8px) */
+.horario {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px 6px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transition: background-color 0.2s, color 0.2s, transform 0.15s, border-color 0.2s;
+    border: 1px solid transparent;
+}
+
+.horario__hora {
+    font-size: 12px;
+    line-height: 1;
+}
+
+.horario__indicador {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Estado Disponible: Verde */
+.horario--disponible {
+    background-color: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.35);
+}
+
+.horario--disponible:hover {
+    background-color: #10b981;
+    color: #042f2e;
+    transform: translateY(-2px);
+}
+
+/* Estado Seleccionado: Oro / Acento */
+.horario--seleccionado {
+    background-color: #e8bd55;
+    color: #111827;
+    border-color: #e8bd55;
+    box-shadow: 0 0 10px rgba(232, 189, 85, 0.5);
+    transform: scale(1.03);
+}
+
+/* Estado Ocupado: Rojo + Inhabilitado */
+.horario--ocupado {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.3);
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Acciones en la tarjeta */
+.card-cancha__acciones {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.card-cancha__btn-reservar {
+    flex: 1;
+    min-height: 44px;
+    background: #e8bd55;
+    color: #111827;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.card-cancha__btn-reservar:hover {
+    background: #f3ce70;
+    transform: translateY(-1px);
+}
+
+.card-cancha__btn-reservar:disabled {
+    background: #334155;
+    color: #64748b;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Botón de Simulación por Tarjeta (.btn-simular) */
+.btn-simular {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-simular:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Foco Accesible Obligatorio */
+button:focus-visible,
+.horario:focus-visible,
+.btn-simular:focus-visible,
+.card-cancha__btn-reservar:focus-visible {
+    outline: 3px solid #0d9488;
+    outline-offset: 2px;
+}

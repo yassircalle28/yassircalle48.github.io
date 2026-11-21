@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 - Validación de Formulario | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 04: VALIDACIÓN EN TIEMPO REAL</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 1 · LABORATORIO 04</span>
+            <h1>Formulario de Reserva con Validación Reactiva</h1>
+            <p>Validación en tiempo real: Nombre/Grupo obligatorio, Teléfono numérico (7-15 dígitos), Correo con Regex estándar. Mensajes de error con <code>fadeIn/fadeOut</code> y mensaje de éxito con <code>slideDown().delay(3000).slideUp()</code>.</p>
+
+            <div id="mensaje-exito" class="alerta-exito" role="status" aria-live="polite">
+                ✔ ¡Reserva registrada con éxito! Tu solicitud está siendo procesada.
+            </div>
+
+            <form id="form-reserva-canchas" class="form-estilizado" novalidate>
+                <div class="campo">
+                    <label for="txt-nombre">Nombre del Cliente o Grupo Deportivo <span class="req">*</span></label>
+                    <input type="text" id="txt-nombre" name="nombre" placeholder="Ej. Los Amigos FC o Carlos Rojas" required>
+                    <span class="error-msg" id="err-nombre">El nombre o grupo es obligatorio (mínimo 3 letras).</span>
+                </div>
+
+                <div class="campo">
+                    <label for="txt-telefono">Número de Celular / Teléfono <span class="req">*</span></label>
+                    <input type="tel" id="txt-telefono" name="telefono" placeholder="Ej. 70123456" required>
+                    <span class="error-msg" id="err-telefono">Ingresa un número telefónico válido (entre 7 y 15 dígitos numéricos).</span>
+                </div>
+
+                <div class="campo">
+                    <label for="txt-correo">Correo Electrónico <span class="req">*</span></label>
+                    <input type="email" id="txt-correo" name="correo" placeholder="ejemplo@deporte.com" required>
+                    <span class="error-msg" id="err-correo">El formato de correo no es válido (ej. usuario@dominio.com).</span>
+                </div>
+
+                <div class="campo-fila">
+                    <div class="campo">
+                        <label for="sel-cancha">Cancha</label>
+                        <select id="sel-cancha">
+                            <option value="futsal">Cancha Sintética Maracaná</option>
+                            <option value="wally">Wally Court A</option>
+                            <option value="voley">Vóley Arena Mixta</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="sel-duracion">Horas</label>
+                        <select id="sel-duracion">
+                            <option value="1">1 Hora (40 BOB)</option>
+                            <option value="2">2 Horas (80 BOB)</option>
+                            <option value="3">3 Horas (120 BOB)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn primary btn-enviar">
+                    Validar y Enviar Reserva →
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

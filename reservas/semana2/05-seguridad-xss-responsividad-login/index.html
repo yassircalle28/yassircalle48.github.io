@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 - Seguridad Anti-XSS y Login | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 05: SEGURIDAD & LOGIN</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-viewport-container">
+        <!-- Barra de Acciones Responsive (.dock-acciones) -->
+        <aside class="dock-acciones" aria-label="Acciones rápidas">
+            <button type="button" class="dock-btn" id="dockBtnLogin">👤 Login</button>
+            <button type="button" class="dock-btn" id="dockBtnXSS">🛡️ Test XSS</button>
+            <a href="../../index.html#reservar" class="dock-btn dock-btn--cta">⚽ Reservar</a>
+        </aside>
+
+        <section class="lab-content-area">
+            <!-- 1. LOGIN SIMULADO (Client-Side, Cero almacenamiento de claves reales) -->
+            <div class="card-modulo" id="seccionLogin">
+                <span class="eyebrow">MÓDULO DE ACCESO CLIENT-SIDE</span>
+                <h2>Login de Administrador de Canchas (Simulado)</h2>
+                <p>Validación de campos, mensajes con <code>.text()</code> y credenciales de prueba académicas (<code>admin@deporzone.bo</code> / <code>canchas2026</code>).</p>
+
+                <form id="formLoginSimulado" class="form-login" novalidate>
+                    <div class="campo">
+                        <label for="loginEmail">Correo Electrónico Institucional</label>
+                        <input type="email" id="loginEmail" placeholder="admin@deporzone.bo" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="loginPassword">Contraseña de Acceso</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn primary btn-login">
+                        Iniciar Sesión Simulado →
+                    </button>
+
+                    <p id="loginFeedback" class="feedback-msg" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+
+            <!-- 2. DEMOSTRACIÓN DE SEGURIDAD ANTI-XSS -->
+            <div class="card-modulo" id="seccionXSS">
+                <span class="eyebrow">DEFENSA ANTI-XSS ESTRICTA</span>
+                <h2>Prueba de Inyección de Scripts (Anti-XSS)</h2>
+                <p>
+                    Prueba ingresando código malicioso como <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>.
+                    El sistema utiliza el patrón seguro <code>&lt;li&gt; + &lt;strong&gt;.text(nombre) + &lt;span&gt;.text(sala)</code> neutralizando cualquier vector de ataque.
+                </p>
+
+                <form id="formTestXSS" class="form-xss">
+                    <div class="campo">
+                        <label for="inputPayload">Payload de Prueba (Nombre / Script):</label>
+                        <div class="input-with-button">
+                            <input type="text" id="inputPayload" value="<script>alert('XSS')</script>">
+                            <button type="button" class="btn secondary" id="btnCargarPayload">Cargar Ataque</button>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="selectSala">Sala o Cancha Asignada:</label>
+                        <select id="selectSala">
+                            <option value="Cancha Sintética 1">Cancha Sintética 1</option>
+                            <option value="Wally Court A">Wally Court A</option>
+                            <option value="Coliseo Vóley">Coliseo Vóley</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn primary">
+                        Renderizar Registro Seguro
+                    </button>
+                </form>
+
+                <div class="xss-output-box">
+                    <h3>Registros Renderizados en el DOM:</h3>
+                    <ul id="listaReservasSeguras" class="lista-segura">
+                        <!-- Generado estrictamente con .text() -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

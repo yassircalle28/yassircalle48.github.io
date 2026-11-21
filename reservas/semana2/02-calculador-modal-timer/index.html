@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - Calculador, Modal y Timer | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 02: CALCULADOR & TIMER</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <!-- Toast Alert Flotante arriba a la derecha -->
+    <div id="toastNotification" class="toast-alert" role="status" aria-live="polite">
+        <span class="toast-icon">✔</span>
+        <span id="toastMessage">¡Reserva confirmada con éxito!</span>
+    </div>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 2 · LABORATORIO 02</span>
+            <h1>Calculador de Tarifa, Resumen y Modal con Temporizador Flash</h1>
+            <p>
+                Calculador reactivo con <code>$('#hrs').on('input', ...)</code>, resaltado numérico con <code>.animate()</code>, extras interactivos, y ventana modal con cuenta regresiva regresiva de 30 segundos (Tarifa Flash).
+            </p>
+
+            <div class="booking-engine">
+                <!-- Panel del Calculador -->
+                <div class="calc-box">
+                    <h3>1. Configurar Reserva</h3>
+                    
+                    <div class="campo">
+                        <label for="canchaSelect">Tipo de Cancha Deportiva</label>
+                        <select id="canchaSelect">
+                            <option value="futsal" data-tarifa="40" data-garantia="20">Cancha Sintética Maracaná (40 BOB/hr)</option>
+                            <option value="wally" data-tarifa="35" data-garantia="15">Wally Court A Panorámico (35 BOB/hr)</option>
+                            <option value="voley" data-tarifa="45" data-garantia="25">Coliseo Vóley / Futsal (45 BOB/hr)</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="hrs">Número de Horas (mínimo 1)</label>
+                        <div class="hrs-input-group">
+                            <input type="number" id="hrs" min="1" max="10" value="1">
+                            <span class="hrs-sufijo">hora(s)</span>
+                        </div>
+                    </div>
+
+                    <!-- Extras Opcionales con Contador Interactivo -->
+                    <div class="extras-group">
+                        <span class="extras-title">Extras opcionales (Contador interactivo):</span>
+                        <div class="extras-list">
+                            <label class="extra-item">
+                                <input type="checkbox" class="extra-check" data-cost="10" data-name="Balón Oficial">
+                                <span>⚽ Balón Profesional (+10 BOB)</span>
+                            </label>
+                            <label class="extra-item">
+                                <input type="checkbox" class="extra-check" data-cost="15" data-name="Juego de Chalecos">
+                                <span>🎽 Juego de Chalecos (+15 BOB)</span>
+                            </label>
+                            <label class="extra-item">
+                                <input type="checkbox" class="extra-check" data-cost="20" data-name="Pack Hidratación">
+                                <span>🥤 Pack Bebidas Hidratantes (+20 BOB)</span>
+                            </label>
+                        </div>
+                        <div class="extras-counter">
+                            Ítems adicionales seleccionados: <strong id="extrasCount">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Resumen -->
+                <div class="summary-card" id="resumenCard">
+                    <h3>2. Tarjeta Resumen</h3>
+                    <ul class="summary-details">
+                        <li>
+                            <span>Tipo de Cancha:</span>
+                            <strong id="resCancha">Cancha Sintética Maracaná</strong>
+                        </li>
+                        <li>
+                            <span>Horas Reservadas:</span>
+                            <strong id="resHoras">1 hora</strong>
+                        </li>
+                        <li>
+                            <span>Garantía Requerida:</span>
+                            <strong id="resGarantia">20 BOB</strong>
+                        </li>
+                        <li>
+                            <span>Extras seleccionados:</span>
+                            <strong id="resExtras">0 BOB</strong>
+                        </li>
+                    </ul>
+
+                    <div class="total-display">
+                        <span>Total Calculado:</span>
+                        <div class="total-animated-wrapper">
+                            <span id="totalDisplay" class="total-monto">Total: 40 BOB</span>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn primary btn-alquilar" id="btnAlquilarCancha">
+                        Alquilar Cancha →
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE CONFIRMACIÓN CON TEMPORIZADOR FLASH (Sección G) -->
+    <div class="modal-backdrop" id="modalConfirmacion" aria-hidden="true">
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+            <button class="modal-close" id="btnModalClose" type="button" aria-label="Cerrar modal">×</button>
+            
+            <div class="modal-icon">⏱️</div>
+            <h2 id="modalTitulo">Confirmar Reserva de Cancha</h2>
+            
+            <div class="modal-body-content">
+                <p><strong>Servicio:</strong> <span id="modalServicio">Cancha Sintética</span></p>
+                <p><strong>Monto a Cancelar:</strong> <span id="modalMonto">80 BOB (2 Horas)</span></p>
+                <p><strong>Garantía en Recepción:</strong> <span id="modalGarantia">20 BOB</span></p>
+                
+                <div class="modal-timer-badge">
+                    Tiempo Restante para Confirmar: <strong id="modalTimer">00:30s</strong>
+                </div>
+            </div>
+
+            <div class="modal-actions-btns">
+                <button type="button" class="btn secondary" id="btnModalCancelar">Cancelar</button>
+                <button type="button" class="btn primary" id="btnModalProcesarPago">Procesar Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

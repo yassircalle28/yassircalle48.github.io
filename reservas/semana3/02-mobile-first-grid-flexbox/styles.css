@@ -1,0 +1,45 @@
+/* Lab Semana 3 - 02: Mobile-First Grid & Flexbox con .sim-movil */
+.lab-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.lab-card {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px;
+}
+
+/* CSS Grid Mobile-First (1fr en móvil) */
+.grid-canchas-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 24px;
+    transition: max-width 0.3s ease, margin 0.3s ease;
+}
+
+/* Escritorio desde 768px: repeat(auto-fit, minmax(220px, 1fr)) */
+@media (min-width: 768px) {
+    .grid-canchas-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+/* Único !important permitido según sección E de los requisitos */
+.grid-canchas-container.sim-movil {
+    max-width: 375px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    grid-template-columns: 1fr !important;
+    border: 3px dashed #e8bd55 !important;
+    padding: 16px !important;
+    border-radius: 20px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+.btn-sim-vista {
+    min-height: 44px;
+}

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e19">
+    <meta name="description" content="De porZone: reserva de canchas deportivas de Fútbol, Wally y Vóley. Sistema PWA Offline-First para SIS-0141.">
+    <title>De porZone | Reserva de Canchas Deportivas</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Estilos Base, Componentes BEM y PWA -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pwa/tarjeta.css">
+</head>
+
+<body class="theme-futbol">
+
+<!-- Indicador de Red con jQuery (#estadoRed) -->
+<div id="estadoRed" class="estado-red online" role="status" aria-live="polite">
+    🟢 En Línea - Sistema conectado al servidor
+</div>
+
+<!-- Toast Alert Flotante arriba a la derecha (Sección G) -->
+<div id="toastNotification" class="toast-alert" role="status" aria-live="polite">
+    <span class="toast-icon">✔</span>
+    <span id="toastMessage">¡Reserva confirmada con éxito!</span>
+</div>
+
+<!-- ENCABEZADO ACCESIBLE -->
+<header class="topbar">
+    <a class="brand nav-view-trigger" href="#inicio" data-view="inicio">
+        <span class="logo">DZ<span>+</span></span>
+        <span>
+            <b>De porZone</b>
+            <small>CANCHAS & EXPERIENCIAS</small>
+        </span>
+    </a>
+
+    <nav id="main-menu" aria-label="Navegación principal">
+        <a href="#inicio" class="nav-view-trigger active" data-view="inicio">Inicio</a>
+        <a href="#catalogo" class="nav-view-trigger" data-view="catalogo">Catálogo Canchas</a>
+        <a href="#reservar" class="nav-view-trigger" data-view="reservar">Calculador &amp; Turnos</a>
+        <a href="#cola-reservas" class="nav-view-trigger" data-view="cola-reservas">Mis Reservas</a>
+        <a href="#modulos" class="nav-view-trigger" data-view="modulos">Laboratorios</a>
+        <a href="#simulaciones" class="nav-view-trigger" data-view="simulaciones">Simulación J</a>
+        <a href="#formulario" class="nav-view-trigger" data-view="formulario">Contacto</a>
+    </nav>
+
+    <div class="header-actions">
+        <!-- Botón Instalar App PWA -->
+        <button id="btnInstalarApp" class="btn primary btn-install-app" type="button" style="display: none;" aria-label="Instalar aplicación en dispositivo">
+            📲 Instalar App
+        </button>
+
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema de color" aria-pressed="false">
+            ☀️
+        </button>
+
+        <button class="btn primary nav-cta nav-view-trigger" data-view="reservar" type="button">
+            Reserva ahora ↗
+        </button>
+
+        <!-- Botón Hamburguesa Accesible -->
+        <button class="hamburger" id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<!-- BARRA DE PESTAÑAS APP MINIMALISTA (DESPLIEGUE DIRECTO SIN SCROLL) -->
+<nav class="app-tabs-bar" aria-label="Selector de vistas principales sin desplazamiento">
+    <button type="button" class="tab-view-btn active" data-view="inicio">
+        🏠 Inicio
+    </button>
+    <button type="button" class="tab-view-btn" data-view="catalogo">
+        ⚽ Catálogo &amp; Turnos
+    </button>
+    <button type="button" class="tab-view-btn" data-view="reservar">
+        ⏱️ Calculador &amp; Resumen
+    </button>
+    <button type="button" class="tab-view-btn" data-view="cola-reservas">
+        📋 Mis Reservas
+    </button>
+    <button type="button" class="tab-view-btn" data-view="modulos">
+        📚 14 Laboratorios
+    </button>
+    <button type="button" class="tab-view-btn" data-view="simulaciones">
+        ⚙ Simulación J
+    </button>
+    <button type="button" class="tab-view-btn" data-view="formulario">
+        📩 Contacto
+    </button>
+</nav>
+
+<main class="app-main-viewport">
+
+    <!-- VISTA 1: INICIO, HERO, INSTALACIONES Y DEPORTES -->
+    <div id="vista-inicio" class="app-seccion active" data-section="inicio">
+        <!-- PORTADA PRINCIPAL (HERO) -->
+        <section class="hero" id="inicio">
+            <div class="hero-copy">
+                <span class="eyebrow">
+                    <i></i> TU PRÓXIMO PARTIDO EMPIEZA AQUÍ
+                </span>
+
+                <h1>
+                    La cancha que<br>
+                    te mueve <em id="hero-word">a jugar.</em>
+                </h1>
+
+                <p id="hero-description">
+                    Reúne a tu equipo, elige tu cancha, bloquea tu turno en tiempo real y disfruta de la mejor experiencia deportiva en La Paz.
+                </p>
+
+                <div class="actions">
+                    <button type="button" class="btn primary nav-view-trigger" data-view="catalogo">
+                        Ver Canchas Disponibles →
+                    </button>
+                    <button type="button" class="btn secondary nav-view-trigger" data-view="modulos">
+                        Ver 14 Módulos Académicos
+                    </button>
+                </div>
+
+                <div class="stats">
+                    <div>
+                        <b>3</b>
+                        <small>deportes</small>
+                    </div>
+                    <i></i>
+                    <div>
+                        <b>40 BOB</b>
+                        <small>tarifa base / hr</small>
+                    </div>
+                    <i></i>
+                    <div>
+                        <b>PWA</b>
+                        <small>offline-first</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual">
+                <div class="hero-photo">
+                    <div class="photo-label">
+                        <span id="hero-icon">⚽</span>
+                        <div>
+                            <b id="hero-mode">MODO FÚTBOL</b>
+                            <small>ELIGE TU DEPORTE</small>
+                        </div>
+                    </div>
+                    <div class="watermark" id="watermark">FCB</div>
+                    <div class="photo-bottom">
+                        <span>01 / 03</span>
+                        <i></i>
+                        <span id="hero-tag">PASIÓN AZULGRANA</span>
+                    </div>
+                </div>
+
+                <div class="float-card">
+                    <span id="float-icon">⚽</span>
+                    <div>
+                        <b id="float-title">La pasión se juega</b>
+                        <small id="float-sub">En cada minuto.</small>
+                    </div>
+                    <strong>↗</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARRUSEL DE INSTALACIONES (CLS y CWV con aspect-ratio) -->
+        <section class="section gallery" id="galeria">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">NUESTRAS INSTALACIONES</span>
+                    <h2>Vive la experiencia deportiva.</h2>
+                </div>
+                <p>Espacios reglamentarios con césped sintético, piso flotante y poliuretano.</p>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide active">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=80" alt="Instalaciones de fútbol y césped sintético" width="1200" height="600" fetchpriority="high">
+                        <div class="slide-caption">
+                            <span>01 / FÚTBOL &amp; FUTSAL</span>
+                            <h3>La pasión nunca se detiene.</h3>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&w=1200&q=80" alt="Partido de wallyball en cancha techada" width="1200" height="600" loading="lazy">
+                        <div class="slide-caption">
+                            <span>02 / WALLYBALL</span>
+                            <h3>Cada punto cuenta con precisión.</h3>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80" alt="Coliseo multideportivo vóley y futsal" width="1200" height="600" loading="lazy">
+                        <div class="slide-caption">
+                            <span>03 / VOLEIBOL SALA</span>
+                            <h3>Velocidad, técnica y potencia en cancha.</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-btn prev" id="prev-slide" type="button" aria-label="Imagen anterior">❮</button>
+                <button class="carousel-btn next" id="next-slide" type="button" aria-label="Imagen siguiente">❯</button>
+
+                <div class="carousel-dots">
+                    <button class="dot active" data-slide="0" aria-label="Ir a imagen 1"></button>
+                    <button class="dot" data-slide="1" aria-label="Ir a imagen 2"></button>
+                    <button class="dot" data-slide="2" aria-label="Ir a imagen 3"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SELECTOR DE DEPORTES Y TEMÁTICA -->
+        <section class="section" id="deportes">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ENCUENTRA TU JUEGO</span>
+                    <h2>¿Qué vamos a jugar hoy?</h2>
+                </div>
+                <p>Selecciona un deporte para adaptar la interfaz y filtrar.</p>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" type="button">Todos</button>
+                <button class="filter-btn" data-filter="futbol" type="button">⚽ Fútbol</button>
+                <button class="filter-btn" data-filter="wally" type="button">🏐 Wally</button>
+                <button class="filter-btn" data-filter="futsal" type="button">🥅 Futsal / Vóley</button>
+            </div>
+
+            <div class="sports">
+                <button class="sport-card active" data-sport="futbol" data-category="futbol" type="button">
+                    <span class="sport-icon">⚽</span>
+                    <span>
+                        <b>Fútbol Sintético</b>
+                        <small>Pasión y césped pro</small>
+                    </span>
+                    <strong>↗</strong>
+                </button>
+
+                <button class="sport-card" data-sport="wally" data-category="wally" type="button">
+                    <span class="sport-icon">🏐</span>
+                    <span>
+                        <b>Wallyball</b>
+                        <small>Potencia y precisión</small>
+                    </span>
+                    <strong>↗</strong>
+                </button>
+
+                <button class="sport-card" data-sport="futsal" data-category="futsal" type="button">
+                    <span class="sport-icon">🥅</span>
+                    <span>
+                        <b>Futsal / Vóley</b>
+                        <small>Ritmo sin pausa</small>
+                    </span>
+                    <strong>↗</strong>
+                </button>
+            </div>
+
+            <p class="filter-result" id="filter-result">Mostrando todos los deportes y canchas disponibles.</p>
+        </section>
+    </div>
+
+
+    <!-- VISTA 2: CATÁLOGO DE CANCHAS BEM CON SELECTOR DE HORARIOS INTEGRADO -->
+    <div id="vista-catalogo" class="app-seccion" data-section="catalogo">
+        <section class="section" id="catalogo">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">CATÁLOGO BEM &amp; DISPONIBILIDAD</span>
+                    <h2>Reserva tu Horario en Tiempo Real</h2>
+                </div>
+                <p>
+                    Haz clic en un horario disponible (Verde = Libre, Rojo = Ocupado).
+                    Al seleccionarlo se cargará automáticamente en la Tarjeta Resumen y el Calculador.
+                </p>
+            </div>
+
+            <!-- Grilla de Tarjetas BEM (.card-cancha) con soporte para .sim-movil -->
+            <div class="catalogo-grid" id="catalogoGrid">
+                <!-- Cancha 1: Fútbol Sintético -->
+                <article class="card-cancha card-cancha--activa" id="cancha-1" data-deporte="futbol">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=700&q=80" alt="Cancha Sintética Maracaná" class="card-cancha__imagen" width="700" height="394" loading="eager">
+                        <span class="card-cancha__badge">Fútbol 8</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Cancha Sintética Maracaná</h3>
+                        <p class="card-cancha__descripcion">Césped Sintético FIFA Quality Pro · Zona Sur</p>
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: 16 jug.</span>
+                            <span class="card-cancha__precio">40 BOB / hr</span>
+                        </div>
+                        <span class="card-cancha__horarios-label">Seleccionar Turno:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-1" data-cancha-nombre="Cancha Sintética Maracaná" data-hora="18:00" data-tarifa="40" aria-label="18:00 disponible"><span class="horario__hora">18:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" data-cancha-id="cancha-1" data-hora="19:00" disabled aria-disabled="true" aria-label="19:00 ocupado"><span class="horario__hora">19:00</span><span class="horario__indicador">Ocupado</span></button>
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-1" data-cancha-nombre="Cancha Sintética Maracaná" data-hora="20:00" data-tarifa="40" aria-label="20:00 disponible"><span class="horario__hora">20:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" data-cancha-id="cancha-1" data-hora="21:00" disabled aria-disabled="true" aria-label="21:00 ocupado"><span class="horario__hora">21:00</span><span class="horario__indicador">Ocupado</span></button>
+                        </div>
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar" data-cancha-id="cancha-1" data-cancha-nombre="Cancha Sintética Maracaná">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular" aria-label="Simular cambio de estado de Maracaná">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Cancha 2: Wally Court -->
+                <article class="card-cancha card-cancha--activa" id="cancha-2" data-deporte="wally">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&w=700&q=80" alt="Wally Court A Panorámico" class="card-cancha__imagen" width="700" height="394" loading="lazy">
+                        <span class="card-cancha__badge">Wallyball</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Wally Court A Panorámico</h3>
+                        <p class="card-cancha__descripcion">Piso Flotante Curado · Módulo Cubierto Nivel 1</p>
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: 8 jug.</span>
+                            <span class="card-cancha__precio">35 BOB / hr</span>
+                        </div>
+                        <span class="card-cancha__horarios-label">Seleccionar Turno:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-2" data-cancha-nombre="Wally Court A Panorámico" data-hora="17:00" data-tarifa="35" aria-label="17:00 disponible"><span class="horario__hora">17:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-2" data-cancha-nombre="Wally Court A Panorámico" data-hora="18:00" data-tarifa="35" aria-label="18:00 disponible"><span class="horario__hora">18:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" data-cancha-id="cancha-2" data-hora="19:00" disabled aria-disabled="true" aria-label="19:00 ocupado"><span class="horario__hora">19:00</span><span class="horario__indicador">Ocupado</span></button>
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-2" data-cancha-nombre="Wally Court A Panorámico" data-hora="20:00" data-tarifa="35" aria-label="20:00 disponible"><span class="horario__hora">20:00</span><span class="horario__indicador">Libre</span></button>
+                        </div>
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar" data-cancha-id="cancha-2" data-cancha-nombre="Wally Court A Panorámico">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular" aria-label="Simular cambio de estado de Wally Court">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Cancha 3: Coliseo Futsal / Vóley -->
+                <article class="card-cancha card-cancha--activa" id="cancha-3" data-deporte="futsal">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80" alt="Coliseo Futsal / Vóley Pro" class="card-cancha__imagen" width="700" height="394" loading="lazy">
+                        <span class="card-cancha__badge">Futsal / Vóley</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Coliseo Futsal / Vóley Pro</h3>
+                        <p class="card-cancha__descripcion">Poliuretano Alto Impacto Oficial · Coliseo Central</p>
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: 12 jug.</span>
+                            <span class="card-cancha__precio">45 BOB / hr</span>
+                        </div>
+                        <span class="card-cancha__horarios-label">Seleccionar Turno:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-3" data-cancha-nombre="Coliseo Futsal / Vóley Pro" data-hora="18:00" data-tarifa="45" aria-label="18:00 disponible"><span class="horario__hora">18:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-3" data-cancha-nombre="Coliseo Futsal / Vóley Pro" data-hora="19:00" data-tarifa="45" aria-label="19:00 disponible"><span class="horario__hora">19:00</span><span class="horario__indicador">Libre</span></button>
+                            <button type="button" class="horario horario--ocupado" data-cancha-id="cancha-3" data-hora="20:00" disabled aria-disabled="true" aria-label="20:00 ocupado"><span class="horario__hora">20:00</span><span class="horario__indicador">Ocupado</span></button>
+                            <button type="button" class="horario horario--disponible" data-cancha-id="cancha-3" data-cancha-nombre="Coliseo Futsal / Vóley Pro" data-hora="21:00" data-tarifa="45" aria-label="21:00 disponible"><span class="horario__hora">21:00</span><span class="horario__indicador">Libre</span></button>
+                        </div>
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar" data-cancha-id="cancha-3" data-cancha-nombre="Coliseo Futsal / Vóley Pro">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular" aria-label="Simular cambio de estado de Coliseo">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- VISTA 3: CALCULADORA DE TARIFAS, RESUMEN Y EXTRAS -->
+    <div id="vista-reservar" class="app-seccion" data-section="reservar">
+        <section class="section booking" id="reservar">
+            <div class="booking-copy">
+                <span class="eyebrow">ASEGURA TU ESPACIO</span>
+                <h2>
+                    Tu partido.<br>
+                    <em>Tu horario.</em>
+                </h2>
+                <p>
+                    Calcula la inversión de tu turno, agrega extras opcionales y confirma tu solicitud mediante nuestro modal con tarifa temporal.
+                </p>
+                <div class="note">
+                    ✦ Moneda Oficial: <b>Bolivianos (BOB)</b> · Tarifa desde 35 a 45 BOB/hr
+                </div>
+            </div>
+
+            <div class="calculator-layout">
+                <!-- Calculador -->
+                <div class="calculator">
+                    <div class="calc-head">
+                        <div>
+                            <span class="eyebrow">CALCULADORA DE TARIFA</span>
+                            <h3>Configura tu Reserva</h3>
+                        </div>
+                        <span class="available" id="calcCanchaSeleccionada">● Maracaná (40 BOB)</span>
+                    </div>
+
+                    <label for="sport-select">Deporte / Cancha</label>
+                    <select id="sport-select">
+                        <option value="cancha-1" data-precio="40" data-garantia="20" data-nombre="Cancha Sintética Maracaná">⚽ Fútbol: Maracaná (40 BOB/hr)</option>
+                        <option value="cancha-2" data-precio="35" data-garantia="15" data-nombre="Wally Court A Panorámico">🏐 Wally: Court A (35 BOB/hr)</option>
+                        <option value="cancha-3" data-precio="45" data-garantia="25" data-nombre="Coliseo Futsal / Vóley Pro">🥅 Futsal / Vóley: Coliseo (45 BOB/hr)</option>
+                    </select>
+
+                    <label for="hours">
+                        Horas de reserva: <strong id="lblTarifaUnit">40 BOB / hr</strong>
+                    </label>
+                    <div class="hours">
+                        <button id="minus" type="button" aria-label="Restar una hora">−</button>
+                        <input id="hours" type="number" min="1" max="12" value="1" aria-label="Cantidad de horas">
+                        <button id="plus" type="button" aria-label="Añadir una hora">+</button>
+                    </div>
+
+                    <!-- Extras Opcionales con Contador Interactivo -->
+                    <div class="extras-section">
+                        <span class="extras-label">Extras Opcionales:</span>
+                        <div class="extras-options">
+                            <label class="extra-check-item">
+                                <input type="checkbox" class="root-extra" data-name="Balón Oficial" data-price="10">
+                                <span>⚽ Balón (+10 BOB)</span>
+                            </label>
+                            <label class="extra-check-item">
+                                <input type="checkbox" class="root-extra" data-name="Juego de Chalecos" data-price="15">
+                                <span>🎽 Chalecos (+15 BOB)</span>
+                            </label>
+                            <label class="extra-check-item">
+                                <input type="checkbox" class="root-extra" data-name="Pack Bebidas" data-price="20">
+                                <span>🥤 Bebidas (+20 BOB)</span>
+                            </label>
+                        </div>
+                        <div class="extras-badge">
+                            Extras activos: <strong id="rootExtrasCounter">0</strong> (<span id="rootExtrasCost">0</span> BOB)
+                        </div>
+                    </div>
+
+                    <div class="price-line">
+                        <span>Garantía Requerida</span>
+                        <b id="lblGarantiaRequerida">20 BOB</b>
+                    </div>
+
+                    <div class="total">
+                        <span>Total a pagar</span>
+                        <strong id="total">Total: 40 BOB</strong>
+                    </div>
+
+                    <button class="btn primary confirm" id="confirm" type="button">
+                        Alquilar Cancha →
+                    </button>
+
+                    <p class="disclaimer">
+                        * Demostración académica UPDS SIS-0141. No procesa cobros bancarios reales.
+                    </p>
+                </div>
+
+                <!-- Tarjeta Resumen -->
+                <div class="summary-box-card" id="tarjetaResumenMain">
+                    <span class="eyebrow">RESUMEN DE RESERVA</span>
+                    <h3 id="resumenCanchaTitulo">Cancha Sintética Maracaná</h3>
+                    
+                    <ul class="resumen-specs-list">
+                        <li>
+                            <span>Turno / Horario:</span>
+                            <strong id="resumenHoraSeleccionada">18:00 (1 Hora)</strong>
+                        </li>
+                        <li>
+                            <span>Garantía en Recepción:</span>
+                            <strong id="resumenGarantiaMonto">20 BOB</strong>
+                        </li>
+                        <li>
+                            <span>Servicio Deportivo:</span>
+                            <strong id="resumenDeporteTipo">Fútbol 8 · Césped Pro</strong>
+                        </li>
+                        <li>
+                            <span>Extras Solicitados:</span>
+                            <strong id="resumenExtrasListado">Ninguno</strong>
+                        </li>
+                    </ul>
+
+                    <div class="resumen-total-wrap">
+                        <span>Importe Liquidado:</span>
+                        <div class="resumen-total-number" id="resumenTotalDisplay">
+                            40 BOB
+                        </div>
+                    </div>
+
+                    <p class="resumen-security-badge">
+                        🛡️ Protección Anti-XSS y Cola Offline habilitada.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- VISTA 4: LISTADO / TABLA DE RESERVAS Y COLA LOCAL -->
+    <div id="vista-cola-reservas" class="app-seccion" data-section="cola-reservas">
+        <section class="section" id="cola-reservas">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">COLA OFFLINE &amp; SINCRONIZACIÓN</span>
+                    <h2>Listado de Reservas Registradas</h2>
+                </div>
+                <p>
+                    Visualización de reservas locales con filas alternadas y estado sincronizado automáticamente.
+                </p>
+            </div>
+
+            <div class="tabla-reservas-container">
+                <table class="tabla-reservas-estilizada">
+                    <thead>
+                        <tr>
+                            <th>Cancha Deportiva</th>
+                            <th>Horario / Duración</th>
+                            <th>Titular / Equipo</th>
+                            <th>Importe (BOB)</th>
+                            <th>Estado de Reserva</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaReservasBody">
+                        <!-- Fila 1 inicial -->
+                        <tr>
+                            <td><strong>Cancha Sintética Maracaná</strong></td>
+                            <td>19:00 - 20:00 (1 hr)</td>
+                            <td>Los Crack Futsal Club</td>
+                            <td>40 BOB</td>
+                            <td><span class="badge-estado badge-estado--verificado">Verificado</span></td>
+                        </tr>
+                        <!-- Fila 2 inicial -->
+                        <tr>
+                            <td><strong>Wally Court A Panorámico</strong></td>
+                            <td>19:00 - 21:00 (2 hrs)</td>
+                            <td>Wally Master La Paz</td>
+                            <td>70 BOB</td>
+                            <td><span class="badge-estado badge-estado--verificado">Verificado</span></td>
+                        </tr>
+                        <!-- Fila 3 inicial -->
+                        <tr>
+                            <td><strong>Coliseo Futsal / Vóley Pro</strong></td>
+                            <td>20:00 - 21:00 (1 hr)</td>
+                            <td>Vóley Femenino Central</td>
+                            <td>45 BOB</td>
+                            <td><span class="badge-estado badge-estado--verificado">Verificado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- VISTA 5: FORMULARIO DE CONTACTO / RESERVA DIRECTA -->
+    <div id="vista-formulario" class="app-seccion" data-section="formulario">
+        <section class="section form-section" id="formulario">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">CONTACTO Y CONFIRMACIÓN</span>
+                    <h2>Solicita tu turno formal.</h2>
+                </div>
+                <p>Completa tus datos con validación segura anti-XSS.</p>
+            </div>
+
+            <form id="reservation-form" class="reservation-form" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo o Grupo Deportivo <span class="req">*</span></label>
+                        <input type="text" id="nombre" placeholder="Tu nombre o equipo" required minlength="3" maxlength="80">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Número de teléfono celular <span class="req">*</span></label>
+                        <input type="tel" id="telefono" placeholder="Ej. 70000000" required pattern="[0-9]{7,15}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo electrónico institucional / personal <span class="req">*</span></label>
+                        <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha">Fecha de reserva <span class="req">*</span></label>
+                        <input type="date" id="fecha" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hora">Hora de inicio <span class="req">*</span></label>
+                        <input type="time" id="hora" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form-sport">Deporte seleccionado</label>
+                        <select id="form-sport" required>
+                            <option value="Fútbol">⚽ Fútbol</option>
+                            <option value="Wally">🏐 Wally</option>
+                            <option value="Futsal">🥅 Futsal / Vóley</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="comentario">Mensaje o especificación técnica</label>
+                        <textarea id="comentario" rows="3" maxlength="500" placeholder="Escribe requerimientos de indumentaria, árbitro, etc..."></textarea>
+                    </div>
+                </div>
+
+                <label class="terms">
+                    <input type="checkbox" id="terms" required>
+                    Acepto los términos de reserva y garantía deportiva de De porZone.
+                </label>
+
+                <button type="submit" class="btn primary form-submit">
+                    Confirmar y Registrar Reserva →
+                </button>
+
+                <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+    </div>
+
+
+    <!-- VISTA 6: ENLACES A LOS 14 MÓDULOS ACADÉMICOS OBLIGATORIOS -->
+    <div id="vista-modulos" class="app-seccion" data-section="modulos">
+        <section class="section modulos-section" id="modulos">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">DISEÑO WEB II · SIS-0141</span>
+                    <h2>Portal de Módulos y Laboratorios Académicos</h2>
+                </div>
+                <p>Acceso directo a cada entrega modular independiente de las tres semanas.</p>
+            </div>
+
+            <div class="modulos-grid">
+                <!-- Semana 1 -->
+                <div class="modulo-semana-card">
+                    <h3>Semana 1: Fundamentos &amp; Interacción</h3>
+                    <ul>
+                        <li><a href="semana1/01-modo-oscuro/index.html">01 - Modo Oscuro &amp; LocalStorage ↗</a></li>
+                        <li><a href="semana1/02-filtro-catalogo/index.html">02 - Filtro Catálogo 3 Capas ↗</a></li>
+                        <li><a href="semana1/03-menu-hamburguesa/index.html">03 - Menú Hamburguesa Accesible ↗</a></li>
+                        <li><a href="semana1/04-validacion-formulario/index.html">04 - Validación de Formulario ↗</a></li>
+                        <li><a href="semana1/05-bitacora-dia1/index.html">05 - Bitácora Día 1: TikTok Live ↗</a></li>
+                        <li><a href="semana1/06-bitacora-dia2/index.html">06 - Bitácora Día 2: Checkout ↗</a></li>
+                    </ul>
+                </div>
+
+                <!-- Semana 2 -->
+                <div class="modulo-semana-card">
+                    <h3>Semana 2: jQuery Avanzado &amp; PWA</h3>
+                    <ul>
+                        <li><a href="semana2/01-jquery-acordeon-temas/index.html">01 - Acordeón &amp; Reto Pro ↗</a></li>
+                        <li><a href="semana2/02-calculador-modal-timer/index.html">02 - Calculador, Modal &amp; Timer ↗</a></li>
+                        <li><a href="semana2/03-fetch-lazyloading/index.html">03 - Fetch JSON &amp; CWV ↗</a></li>
+                        <li><a href="semana2/04-arquitectura-pwa-offline/index.html">04 - Arquitectura PWA &amp; Offline ↗</a></li>
+                        <li><a href="semana2/05-seguridad-xss-responsividad-login/index.html">05 - Anti-XSS, UI Móvil &amp; Login ↗</a></li>
+                    </ul>
+                </div>
+
+                <!-- Semana 3 -->
+                <div class="modulo-semana-card">
+                    <h3>Semana 3: Arquitectura, CWV &amp; BEM</h3>
+                    <ul>
+                        <li><a href="semana3/01-componentes-encapsulamiento/index.html">01 - Componentes BEM Tarjeta ↗</a></li>
+                        <li><a href="semana3/02-mobile-first-grid-flexbox/index.html">02 - Mobile-First Grid &amp; Flexbox ↗</a></li>
+                        <li><a href="semana3/03-cwv-bem-dompurify-sw/index.html">03 - CWV, DOMPurify &amp; SW ↗</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- VISTA 7: PANEL DE BOTONES DE SIMULACIÓN (SECCIÓN J - IDS EXACTOS) -->
+    <div id="vista-simulaciones" class="app-seccion" data-section="simulaciones">
+        <section class="section simulaciones-section" id="simulaciones">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">SECCIÓN J · AUDITORÍA EN TIEMPO REAL</span>
+                    <h2>Panel de Pruebas y Simulación Académica</h2>
+                </div>
+                <p>Botones de prueba con IDs exactos para auditar accesibilidad, contraste, vista responsive y smoke test.</p>
+            </div>
+
+            <div class="simulaciones-toolbar">
+                <!-- 1. #btnSimularContraste -->
+                <button type="button" class="btn secondary sim-tool-btn" id="btnSimularContraste">
+                    🌓 Simular Alto Contraste (#btnSimularContraste)
+                </button>
+
+                <!-- 2. #btnSimularVista -->
+                <button type="button" class="btn secondary sim-tool-btn" id="btnSimularVista">
+                    📱 Simular Vista Móvil (#btnSimularVista)
+                </button>
+
+                <!-- 3. #btnAuditarA11Y -->
+                <button type="button" class="btn secondary sim-tool-btn" id="btnAuditarA11Y">
+                    ♿ Auditar Accesibilidad (#btnAuditarA11Y)
+                </button>
+
+                <!-- 4. #btnSmokeTest -->
+                <button type="button" class="btn primary sim-tool-btn" id="btnSmokeTest">
+                    🧪 Ejecutar Smoke Test (#btnSmokeTest)
+                </button>
+            </div>
+
+            <!-- Salidas de reporte accesibles (role="status" aria-live="polite") -->
+            <div class="simulaciones-reportes">
+                <div class="report-block">
+                    <h4>Reporte A11Y:</h4>
+                    <div id="reporteA11Y" class="report-output" role="status" aria-live="polite">
+                        Listo para auditar accesibilidad. Haz clic en el botón superior.
+                    </div>
+                </div>
+
+                <div class="report-block">
+                    <h4>Salida Smoke Test:</h4>
+                    <div id="salidaAudit" class="report-output" role="status" aria-live="polite">
+                        Listo para ejecutar el Smoke Test del sistema completo.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+
+<!-- BARRA DE ACCIONES INFERIOR / LATERAL (.dock-acciones) CON CAMBIO DE VISTA DIRECTO -->
+<aside class="dock-acciones" aria-label="Barra de acciones rápidas">
+    <button type="button" class="dock-btn nav-view-trigger" data-view="inicio" aria-label="Ir a inicio">🏠 Inicio</button>
+    <button type="button" class="dock-btn nav-view-trigger" data-view="catalogo" aria-label="Ir a catálogo">⚽ Canchas</button>
+    <button type="button" class="dock-btn nav-view-trigger" data-view="reservar" aria-label="Ir a calculador">⏱️ Turnos</button>
+    <button type="button" class="dock-btn nav-view-trigger" data-view="cola-reservas" aria-label="Ir a mis reservas">📋 Cola</button>
+    <button type="button" class="dock-btn nav-view-trigger" data-view="simulaciones" aria-label="Ir a pruebas">⚙ Test</button>
+    <button type="button" class="dock-btn dock-btn--cta nav-view-trigger" data-view="reservar" aria-label="Confirmar reserva">Reserva Ya ↗</button>
+</aside>
+
+
+<!-- PIE DE PÁGINA -->
+<footer>
+    <div class="footer-brand">
+        <a class="brand nav-view-trigger" href="#inicio" data-view="inicio">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>CANCHAS & EXPERIENCIAS</small>
+            </span>
+        </a>
+        <p>Reserva de canchas de Futsal, Wally y Vóley. Desarrollado para Diseño Web II (SIS-0141).</p>
+    </div>
+
+    <div class="social-links">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">♪</a>
+        <a href="https://wa.me/59170000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">☎</a>
+    </div>
+
+    <span>© 2026 De porZone · UPDS Sede La Paz · Ing. Miguel Angel Cruz Ramos</span>
+</footer>
+
+
+<!-- VENTANA MODAL DE CONFIRMACIÓN CON TEMPORIZADOR FLASH (Sección G) -->
+<div class="modal-backdrop" id="modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="close" id="close" type="button" aria-label="Cerrar modal de confirmación">×</button>
+        <div class="check">⏱️</div>
+        <span class="eyebrow">CONFIRMAR RESERVA</span>
+        <h2 id="modal-title">Confirmar Reserva de Cancha</h2>
+        
+        <div class="modal-details-card">
+            <p><strong>Servicio:</strong> <span id="modalCanchaNombre">Cancha Sintética Maracaná</span></p>
+            <p><strong>Monto a Cancelar:</strong> <span id="modalMontoDetalle">40 BOB (1 Hora)</span></p>
+            <p><strong>Garantía Requerida:</strong> <span id="modalGarantiaDetalle">20 BOB</span></p>
+            
+            <div class="modal-flash-timer">
+                Tiempo Restante para Confirmar: <strong id="countdown">00:30s</strong>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn secondary" id="cancel" type="button">
+                Cancelar
+            </button>
+            <button class="btn primary" id="accept" type="button">
+                Procesar Pago
+            </button>
+        </div>
+
+        <p class="modal-message" id="modal-message" role="status" aria-live="polite"></p>
+    </div>
+</div>
+
+
+<!-- LIBRERÍAS EXTERNAS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+<!-- COMPONENTE BEM Y SCRIPT PRINCIPAL -->
+<script src="pwa/tarjeta.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 - Menú Hamburguesa | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 03: MENÚ HAMBURGUESA</small>
+            </span>
+        </a>
+
+        <div class="header-actions">
+            <!-- Botón Accesible ☰ -->
+            <button class="hamburger-btn" id="btn-hamburger" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-principal">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <a class="nav-cta" href="../../index.html">← Salir</a>
+        </div>
+    </header>
+
+    <!-- Nav con aria-label y slideToggle(300) -->
+    <nav class="nav-collapsible" id="nav-principal" aria-label="Navegación principal de canchas">
+        <ul class="nav-list">
+            <li><a href="../../index.html#inicio">⚽ Portada de Canchas</a></li>
+            <li><a href="../../index.html#deportes">🏐 Deportes Disponibles</a></li>
+            <li><a href="../../index.html#servicios">🥅 Servicios y Vestuarios</a></li>
+            <li><a href="../../index.html#reservar">📅 Reservar Horario</a></li>
+            <li><a href="../../index.html#simulaciones">⚙ Panel de Pruebas</a></li>
+        </ul>
+    </nav>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 1 · LABORATORIO 03</span>
+            <h1>Menú Hamburguesa Accesible con slideToggle(300)</h1>
+            <p>
+                Este módulo implementa el patrón de navegación responsive con control de visibilidad mediante jQuery <code>slideToggle(300)</code>, sincronización de <code>aria-expanded</code> y cambio dinámico del <code>aria-label</code> ("Abrir menú" / "Cerrar menú").
+            </p>
+            <div class="test-panel">
+                <h3>Estado actual del menú:</h3>
+                <p>Propiedad <code>aria-expanded</code>: <strong id="debug-expanded">false</strong></p>
+                <p>Visibilidad: <strong id="debug-visibilidad">Oculto (slideUp)</strong></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

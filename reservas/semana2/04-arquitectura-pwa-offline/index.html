@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e19">
+    <title>04 - Arquitectura PWA y Offline | De porZone</title>
+    <link rel="manifest" href="../../manifest.json">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <!-- Indicador de Red con jQuery (#estadoRed) -->
+    <div id="estadoRed" class="estado-red online" role="status" aria-live="polite">
+        🟢 En Línea - Sistema conectado al servidor
+    </div>
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 04: PWA & OFFLINE-FIRST</small>
+            </span>
+        </a>
+        <div class="header-actions">
+            <!-- Botón Instalar App con beforeinstallprompt -->
+            <button id="btnInstalarApp" class="btn primary btn-install" type="button" style="display: none;">
+                📲 Instalar App
+            </button>
+            <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+        </div>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 2 · LABORATORIO 04</span>
+            <h1>Arquitectura PWA: Soporte Offline y Cola de Sincronización</h1>
+            <p>
+                Este módulo prueba el funcionamiento sin conexión a internet.
+                Las reservas realizadas en modo offline se almacenan automáticamente en una <strong>cola local</strong> con el estado visible <code>Guardado localmente - Pendiente de envío</code>, sincronizándose a <code>Verificado</code> tan pronto como se restablece la conexión.
+            </p>
+
+            <!-- Formulario de Prueba Offline -->
+            <div class="offline-engine">
+                <form id="formOfflineReserva" class="offline-form">
+                    <h3>Registrar Reserva (Prueba Offline)</h3>
+                    
+                    <div class="campo">
+                        <label for="offCliente">Nombre o Equipo Solicitante</label>
+                        <input type="text" id="offCliente" placeholder="Ej. Wally Crack" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="offCancha">Cancha</label>
+                        <select id="offCancha">
+                            <option value="Cancha Sintética Maracaná">⚽ Cancha Sintética Maracaná (40 BOB)</option>
+                            <option value="Wally Court A">🏐 Wally Court A (35 BOB)</option>
+                            <option value="Coliseo Vóley Arena">🥅 Coliseo Vóley Arena (45 BOB)</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="offHora">Horario Turno</label>
+                        <select id="offHora">
+                            <option value="18:00 - 19:00">18:00 - 19:00</option>
+                            <option value="19:00 - 20:00">19:00 - 20:00</option>
+                            <option value="20:00 - 21:00">20:00 - 21:00</option>
+                            <option value="21:00 - 22:00">21:00 - 22:00</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn primary">
+                        Guardar Reserva en Cola →
+                    </button>
+                </form>
+
+                <!-- Tabla de Cola Local de Reservas -->
+                <div class="queue-panel">
+                    <div class="queue-header">
+                        <h3>Cola de Sincronización Local</h3>
+                        <button type="button" id="btnSimularDesconexion" class="btn-toggle-red">
+                            Simular Desconexión
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="tabla-reservas">
+                            <thead>
+                                <tr>
+                                    <th>Cancha / Turno</th>
+                                    <th>Cliente</th>
+                                    <th>Estado de Envío</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaColaBody">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

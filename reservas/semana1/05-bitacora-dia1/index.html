@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 - Bitácora Día 1: Live Canchas | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futsal">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 05: BITÁCORA DÍA 1 (TIKTOK LIVE)</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 1 · LABORATORIO 05</span>
+            <h1>Live Shopping Deportivo: Ofertas Relámpago</h1>
+            <p>
+                Delegación de eventos sobre <code>#liveContainer</code> (click: reserva rápida, dblclick: like animado) y keyup en chat.
+                <strong>Registro en bitácora construido estrictamente con nodos del DOM y textContent (Cero innerHTML).</strong>
+            </p>
+
+            <div class="live-layout">
+                <!-- Contenedor del Live -->
+                <div class="live-stream-box" id="liveContainer" data-live-id="futsal-live-01">
+                    <div class="live-badge-rec">🔴 EN VIVO · 2.4k viendo</div>
+                    <div class="like-overlay" id="likeOverlay" aria-hidden="true">❤️</div>
+                    
+                    <div class="stream-center">
+                        <span class="stream-icon">🥅</span>
+                        <h3>Transmisión: Ofertas Flash de Medianoche</h3>
+                        <p>Doble clic sobre el video para enviar un like al Live.</p>
+                    </div>
+
+                    <!-- 3 Ofertas Relámpago -->
+                    <div class="flash-deals-tray">
+                        <div class="deal-card" data-deal-id="deal-1" data-deal-name="Hora Flash Futsal" data-deal-price="25">
+                            <span class="deal-tag">⚡ 35% OFF</span>
+                            <h4>Hora Flash Futsal</h4>
+                            <p>Turno 22:00 hoy</p>
+                            <span class="deal-price">25 BOB</span>
+                            <button type="button" class="btn primary deal-btn" data-action="buy">Añadir Oferta</button>
+                        </div>
+
+                        <div class="deal-card" data-deal-id="deal-2" data-deal-name="Combo Nocturno Wally" data-deal-price="30">
+                            <span class="deal-tag">⚡ OFERTA</span>
+                            <h4>Combo Wally + Balón</h4>
+                            <p>Turno 21:00 hoy</p>
+                            <span class="deal-price">30 BOB</span>
+                            <button type="button" class="btn primary deal-btn" data-action="buy">Añadir Oferta</button>
+                        </div>
+
+                        <div class="deal-card" data-deal-id="deal-3" data-deal-name="Vóley Prime Viernes" data-deal-price="35">
+                            <span class="deal-tag">⚡ FLASH</span>
+                            <h4>Vóley Prime Mixto</h4>
+                            <p>Turno 20:00 hoy</p>
+                            <span class="deal-price">35 BOB</span>
+                            <button type="button" class="btn primary deal-btn" data-action="buy">Añadir Oferta</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat interactivo y Registro -->
+                <div class="live-sidebar">
+                    <div class="chat-box">
+                        <h3>Chat en Vivo</h3>
+                        <div class="chat-input-wrapper">
+                            <!-- Corregido: comillas bien cerradas type="text" id="chatInput" -->
+                            <input type="text" id="chatInput" placeholder="Escribe un mensaje y pulsa Enter..." autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="log-box">
+                        <div class="log-head">
+                            <h3>Bitácora de Eventos</h3>
+                            <button type="button" id="btn-limpiar-log" class="btn-clear">Limpiar</button>
+                        </div>
+                        <ul id="logOutput" class="log-list" role="log" aria-live="polite">
+                            <!-- Inserción segura con nodos -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

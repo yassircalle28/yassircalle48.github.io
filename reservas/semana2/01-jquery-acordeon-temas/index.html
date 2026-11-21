@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Acordeón jQuery y Reto Pro | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 01: ACORDEÓN & TEMAS</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <!-- Contenedor con degradado CSS dinámico para el Reto Pro -->
+        <section class="lab-card theme-gradient-container bg-futbol" id="themeContainer">
+            <span class="eyebrow">SEMANA 2 · LABORATORIO 01</span>
+            
+            <div class="reto-pro-header">
+                <div class="main-icon-wrapper">
+                    <span id="mainSportIcon" class="main-sport-icon">⚽</span>
+                </div>
+                <div>
+                    <h1 id="mainSportTitle">Fútbol & Futsal Pro</h1>
+                    <p id="mainSportSubtitle">Degradado CSS interactivo con .addClass() y actualización de ícono con .text() (Sin .html)</p>
+                </div>
+            </div>
+
+            <!-- Botones del Reto Pro (+0.5 ptos) -->
+            <div class="deportes-selector" role="group" aria-label="Cambiar tema de deporte">
+                <button type="button" class="btn-deporte active" data-sport="futbol" data-emoji="⚽">
+                    ⚽ Fútbol
+                </button>
+                <button type="button" class="btn-deporte" data-sport="wally" data-emoji="🏐">
+                    🏐 Wally
+                </button>
+                <button type="button" class="btn-deporte" data-sport="voley" data-emoji="🥅">
+                    🥅 Vóley
+                </button>
+            </div>
+
+            <!-- ACORDEÓN CON slideToggle('fast') y slideToggle('slow') -->
+            <div class="accordion" id="acordeonCanchas">
+                <!-- 1. Reglas de Uso (slideToggle('fast')) -->
+                <div class="accordion-item">
+                    <button class="accordion-btn" type="button" aria-expanded="false">
+                        <span>📋 Reglas Generales de Uso de las Canchas</span>
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <p>1. Ingreso con calzado deportivo adecuado (zapatillas de fútbol sala o calzado de suela plana para Wally/Vóley).</p>
+                        <p>2. Prohibido fumar, ingresar bebidas alcohólicas o consumir chicle dentro de la superficie deportiva.</p>
+                        <p>3. El turno inicia y finaliza puntualmente en la hora reservada.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Políticas de Garantía y Cancelación (slideToggle('fast')) -->
+                <div class="accordion-item">
+                    <button class="accordion-btn" type="button" aria-expanded="false">
+                        <span>🛡️ Políticas de Garantía y Cancelación</span>
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <p>• La garantía requerida (15 a 25 BOB) se devuelve íntegramente al entregar el material y dejar la cancha en buen estado.</p>
+                        <p>• Cancelaciones con más de 24 horas de anticipación tienen 100% de devolución.</p>
+                        <p>• En caso de fuerza mayor o corte imprevisto, se reprograma el turno sin costo adicional.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Preguntas Frecuentes (slideToggle('fast')) -->
+                <div class="accordion-item">
+                    <button class="accordion-btn" type="button" aria-expanded="false">
+                        <span>❓ Preguntas Frecuentes (FAQ)</span>
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-panel">
+                        <p><strong>¿Tienen vestuarios y duchas?</strong> Sí, servicio gratuito para equipos que tengan turnos reservados.</p>
+                        <p><strong>¿Alquilan balones y chalecos?</strong> Sí, disponibles en recepción desde 10 BOB.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Disponibilidad por Horas (slideToggle('slow')) -->
+                <div class="accordion-item">
+                    <button class="accordion-btn accordion-btn--horas" type="button" aria-expanded="false">
+                        <span>⏱️ Disponibilidad de Horarios por Deporte (Despliegue Lento)</span>
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-panel accordion-panel--horas">
+                        <div class="horas-preview">
+                            <div class="hora-col">
+                                <h4>⚽ Futsal (Cancha Sintética)</h4>
+                                <ul>
+                                    <li>18:00 - 19:00: Disponible</li>
+                                    <li>19:00 - 20:00: Reservado</li>
+                                    <li>20:00 - 21:00: Disponible</li>
+                                </ul>
+                            </div>
+                            <div class="hora-col">
+                                <h4>🏐 Wally (Cancha A)</h4>
+                                <ul>
+                                    <li>18:00 - 19:00: Disponible</li>
+                                    <li>19:00 - 20:00: Disponible</li>
+                                    <li>20:00 - 21:00: Reservado</li>
+                                </ul>
+                            </div>
+                            <div class="hora-col">
+                                <h4>🥅 Vóley (Poliuretano)</h4>
+                                <ul>
+                                    <li>17:00 - 18:00: Disponible</li>
+                                    <li>18:00 - 19:00: Reservado</li>
+                                    <li>19:00 - 20:00: Disponible</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

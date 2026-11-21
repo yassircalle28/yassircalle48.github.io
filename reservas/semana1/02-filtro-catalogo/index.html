@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - Filtro de Catálogo | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../pwa/tarjeta.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 02: FILTRO EN CASCADA</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 1 · LABORATORIO 02</span>
+            <h1>Filtro de Catálogo de 3 Capas</h1>
+            <p>Filtro en cascada dependiente: <strong>1. Tipo de Cancha &gt; 2. Día de Reserva &gt; 3. Horario</strong> con pestañas dinámicas usando jQuery (<code>.removeClass('active')</code> y <code>.addClass('active')</code>).</p>
+
+            <!-- 1. Pestañas de Cancha -->
+            <div class="tabs-container">
+                <span class="tabs-label">Pestañas de Cancha:</span>
+                <div class="tabs-nav" role="tablist">
+                    <button class="tab-btn active" data-court="sintetica" role="tab" aria-selected="true">
+                        ⚽ Cancha Sintética
+                    </button>
+                    <button class="tab-btn" data-court="wally" role="tab" aria-selected="false">
+                        🏐 Wally A
+                    </button>
+                    <button class="tab-btn" data-court="voleibol" role="tab" aria-selected="false">
+                        🥅 Voleibol
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtro de 3 Capas en Cascada -->
+            <div class="cascade-filter">
+                <div class="filter-step">
+                    <label for="filtro-tipo">Capa 1: Tipo de Cancha</label>
+                    <select id="filtro-tipo">
+                        <option value="todos">Todos los Deportes</option>
+                        <option value="sintetica">Cancha Sintética (Fútbol)</option>
+                        <option value="wally">Wallyball (Cancha Techada)</option>
+                        <option value="voleibol">Voleibol / Futsal</option>
+                    </select>
+                </div>
+
+                <div class="filter-step">
+                    <label for="filtro-dia">Capa 2: Día</label>
+                    <select id="filtro-dia">
+                        <option value="hoy">Hoy</option>
+                        <option value="manana">Mañana</option>
+                        <option value="fin-de-semana">Fin de Semana</option>
+                    </select>
+                </div>
+
+                <div class="filter-step">
+                    <label for="filtro-horario">Capa 3: Rango de Horario</label>
+                    <select id="filtro-horario">
+                        <option value="todos">Todos los horarios</option>
+                        <option value="tarde">Tarde (16:00 - 19:00)</option>
+                        <option value="noche">Noche (19:00 - 23:00)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vista Dinámica de la Cancha Seleccionada -->
+            <div class="court-display">
+                <div class="court-media">
+                    <img id="court-img" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80" alt="Cancha Sintética" width="800" height="450" loading="eager">
+                </div>
+                <div class="court-info">
+                    <h2 id="court-title">Cancha Sintética Maracaná</h2>
+                    <p id="court-desc">Pasto sintético monofilamento de 50mm con iluminación LED nocturna. Ideal para Fútbol 7 u 8.</p>
+                    <div class="horarios-grid" id="horarios-catalogo">
+                        <!-- Generados por script.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

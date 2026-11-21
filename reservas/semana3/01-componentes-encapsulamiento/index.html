@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Componentes y Encapsulamiento BEM | De porZone</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../pwa/tarjeta.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-futbol">
+
+    <header class="topbar">
+        <a class="brand" href="../../index.html">
+            <span class="logo">DZ<span>+</span></span>
+            <span>
+                <b>De porZone</b>
+                <small>LAB 01: COMPONENTES BEM</small>
+            </span>
+        </a>
+        <a class="nav-cta" href="../../index.html">← Volver al Portal</a>
+    </header>
+
+    <main class="lab-container">
+        <section class="lab-card">
+            <span class="eyebrow">SEMANA 3 · LABORATORIO 01</span>
+            <h1>Encapsulamiento BEM: Tarjeta de Cancha (.card-cancha)</h1>
+            <p>
+                Arquitectura de componentes CSS modular BEM (Bloque__Elemento--Modificador), reutilizando <code>../../pwa/tarjeta.css</code> y <code>tarjeta.js</code>.
+                Cada tarjeta incluye su botón <code>.btn-simular</code> con control por delegación de eventos que altera únicamente la tarjeta presionada sin interferir en las demás.
+            </p>
+
+            <div class="cards-grid" id="contenedorTarjetas">
+                <!-- Tarjeta 1: Futsal -->
+                <article class="card-cancha card-cancha--activa" id="cancha-lab-1">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=700&q=80" 
+                             alt="Cancha Sintética Maracaná" 
+                             class="card-cancha__imagen" 
+                             width="700" 
+                             height="394" 
+                             loading="eager">
+                        <span class="card-cancha__badge">Fútbol 8</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Cancha Sintética Maracaná</h3>
+                        <p class="card-cancha__descripcion">Césped Sintético FIFA Quality Pro · Zona Sur</p>
+                        
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: <strong>16 jugadores</strong></span>
+                            <span class="card-cancha__precio">40 BOB / hr</span>
+                        </div>
+
+                        <span class="card-cancha__horarios-label">Horarios Disponibles:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" data-hora="18:00" aria-label="18:00 disponible">
+                                <span class="horario__hora">18:00</span>
+                                <span class="horario__indicador">Libre</span>
+                            </button>
+                            <button type="button" class="horario horario--ocupado" data-hora="19:00" disabled aria-disabled="true" aria-label="19:00 ocupado">
+                                <span class="horario__hora">19:00</span>
+                                <span class="horario__indicador">Ocupado</span>
+                            </button>
+                            <button type="button" class="horario horario--disponible" data-hora="20:00" aria-label="20:00 disponible">
+                                <span class="horario__hora">20:00</span>
+                                <span class="horario__indicador">Libre</span>
+                            </button>
+                        </div>
+
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular" aria-label="Simular cambio de estado de Maracaná">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Tarjeta 2: Wally -->
+                <article class="card-cancha card-cancha--activa" id="cancha-lab-2">
+                    <div class="card-cancha__header">
+                        <img src="https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&w=700&q=80" 
+                             alt="Wally Court A Climático" 
+                             class="card-cancha__imagen" 
+                             width="700" 
+                             height="394" 
+                             loading="lazy">
+                        <span class="card-cancha__badge">Wallyball</span>
+                        <span class="card-cancha__estado card-cancha__estado--disponible">● Disponible</span>
+                    </div>
+                    <div class="card-cancha__cuerpo">
+                        <h3 class="card-cancha__titulo">Wally Court A (Climático)</h3>
+                        <p class="card-cancha__descripcion">Piso Flotante Madera Curada · Nivel 1</p>
+                        
+                        <div class="card-cancha__specs">
+                            <span>Capacidad: <strong>8 jugadores</strong></span>
+                            <span class="card-cancha__precio">35 BOB / hr</span>
+                        </div>
+
+                        <span class="card-cancha__horarios-label">Horarios Disponibles:</span>
+                        <div class="card-cancha__horarios">
+                            <button type="button" class="horario horario--disponible" data-hora="17:00" aria-label="17:00 disponible">
+                                <span class="horario__hora">17:00</span>
+                                <span class="horario__indicador">Libre</span>
+                            </button>
+                            <button type="button" class="horario horario--disponible" data-hora="18:00" aria-label="18:00 disponible">
+                                <span class="horario__hora">18:00</span>
+                                <span class="horario__indicador">Libre</span>
+                            </button>
+                            <button type="button" class="horario horario--ocupado" data-hora="19:00" disabled aria-disabled="true" aria-label="19:00 ocupado">
+                                <span class="horario__hora">19:00</span>
+                                <span class="horario__indicador">Ocupado</span>
+                            </button>
+                        </div>
+
+                        <div class="card-cancha__acciones">
+                            <button type="button" class="card-cancha__btn-reservar">Reservar Cancha →</button>
+                            <button type="button" class="btn-simular" aria-label="Simular cambio de estado de Wally Court">⚙ Simular</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../../pwa/tarjeta.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

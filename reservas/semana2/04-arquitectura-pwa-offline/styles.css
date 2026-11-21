@@ -1,0 +1,145 @@
+/* Lab Semana 2 - 04: PWA Offline-First */
+.lab-container {
+    max-width: 1050px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.lab-card {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+/* Indicador de Red Requerido (#estadoRed) */
+.estado-red {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+.estado-red.online {
+    background: #065f46;
+    color: #6ee7b7;
+}
+
+.estado-red.offline {
+    background: #9a3412;
+    color: #fdba74;
+}
+
+.offline-engine {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+    .offline-engine {
+        grid-template-columns: 1fr 1.3fr;
+    }
+}
+
+.offline-form, .queue-panel {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.offline-form h3, .queue-panel h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: #e8bd55;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.campo label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.campo input, .campo select {
+    min-height: 44px;
+    padding: 8px 12px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+}
+
+.queue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.btn-toggle-red {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.tabla-reservas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.tabla-reservas th, .tabla-reservas td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabla-reservas th {
+    background: rgba(0, 0, 0, 0.2);
+    color: #e8bd55;
+    font-weight: 700;
+}
+
+/* Filas alternadas requeridas */
+.tabla-reservas tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.badge-estado {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge-estado--pendiente {
+    background: rgba(234, 88, 12, 0.2);
+    color: #fb923c;
+    border: 1px solid rgba(234, 88, 12, 0.4);
+}
+
+.badge-estado--verificado {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
